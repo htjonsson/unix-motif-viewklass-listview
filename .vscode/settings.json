@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "EZ.C": "cpp",
+        "Graphics.C": "cpp",
+        "ListView.C": "cpp",
+        "ListViewDelegate.C": "cpp",
+        "main.C": "cpp"
+    }
+}
