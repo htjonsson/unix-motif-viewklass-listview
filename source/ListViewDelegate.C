@@ -1,9 +1,5 @@
 #include "ListViewDelegate.h"
 
-#include "EZ.h"
-#include "images/workstation_sgi.xpm"
-#include "images/workstation_sparc.xpm"
-
 #include <Vk/VkPixmap.h>
 #include <Xm/Xm.h>
 #include <X11/Xlib.h>
@@ -21,9 +17,7 @@ ListViewDelegate::ListViewDelegate()
 }
 
 ListViewDelegate::~ListViewDelegate()
-{
-
-}
+{}
 
 // --------------------------------------------------------------------------------------------------------------------------
 
