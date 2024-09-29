@@ -39,8 +39,6 @@ void ListView::createWidget(const char *name, Widget parent)
 
     _drawingArea = XtVaCreateManagedWidget("list_view_panel_drawing_a",
                                            xmDrawingAreaWidgetClass, _baseWidget,
-                                           // XmNwidth, Resrcs.view_width,
-                                           // XmNheight, Resrcs.view_height,
                                            NULL);
 
     // --------------------------------------------------------------------------
@@ -50,8 +48,7 @@ void ListView::createWidget(const char *name, Widget parent)
                                                  XmNorientation, XmVERTICAL,
                                                  XmNminimum, 0,
                                                  XmNmaximum, _numberOfRows,
-                                                 // XmNsliderSize,  1,  // (int)(_numberOfRows/_numberOfRowsVisible),
-                                                 NULL);
+                                                  NULL);
 
     // --------------------------------------------------------------------------
 
@@ -59,7 +56,6 @@ void ListView::createWidget(const char *name, Widget parent)
                                                    xmScrollBarWidgetClass, _baseWidget,
                                                    XmNorientation, XmHORIZONTAL,
                                                    XmNmaximum, 1,
-                                                   // XmNsliderSize,    min (Resrcs.view_width / cell_width, Resrcs.cols),
                                                    NULL);
 
     // --------------------------------------------------------------------------
@@ -212,10 +208,6 @@ ListView::redraw(Window window)
             _delegate->draw(rowId, &graphics, rectangle);
         }     
     }
-
-    // Fix the slide size 
-    // int slideSize = (_numberOfRows/_numberOfRowsVisible);
-    // XtVaSetValues(_verticalScrollbar, XmNsliderSize, slideSize, NULL);
 }
 
 int
