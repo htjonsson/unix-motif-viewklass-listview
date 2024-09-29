@@ -83,5 +83,5 @@ Delegate::draw(int rowId, Graphics* g, XRectangle rectangle)
 
     // image
     rect = EZ::ofRectangle(rectangle, 6, 15, 48, 48);
-    g->draw(getImageName(rowId, g), 48, 48, rect.x, rect.y);    
+    g->draw(getImageName(rowId, g), rect);    
 }
