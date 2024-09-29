@@ -25,7 +25,7 @@ public:
     void setHeightOfRow(int heightOfRow);
 
 public:
-    void rowSelected(int rowId);
+    virtual void rowSelected(int rowId);
 
 public:
     virtual void draw(int rowId, Graphics* graphics, XRectangle rectangle);
