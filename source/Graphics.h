@@ -1,8 +1,6 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "VkFont.h"
-
 #include <X11/Xft/Xft.h>
 #include <Xm/Xm.h>
 #include <string>
@@ -28,9 +26,6 @@ public:
      Window window();
      Display* display();
      
-public:
-     void clearWindow();
-
 protected:     
      Colormap getColormap();  
 
@@ -57,8 +52,8 @@ private:
      XftFont* getFontByNameXft(std::string fontName);
 
 public:
+     bool drawString(std::string fontName, std::string colorName, XRectangle rect, std::string text);
      bool drawString(std::string fontName, std::string colorName, Dimension x, Dimension y, std::string text);
-     void drawString(Dimension x, Dimension y, std::string text);
 
 private:
      std::map<std::string, XColor*> _colorMap;
@@ -87,8 +82,9 @@ public:
      void setPixmap(std::string pixmapName, Pixmap pixmap);
 
 public:
+     void draw(std::string pixmapName, XRectangle rect);
      void draw(std::string pixmapName, unsigned int width, unsigned int height, int dest_x, int dest_y);
-     void draw(Pixmap pixmap, unsigned int width, unsigned int height, int dest_x, int dest_y);      
+     void draw(Pixmap pixmap, unsigned int width, unsigned int height, int dest_x, int dest_y); 
 };
 
 #endif // GRAPHICS_H

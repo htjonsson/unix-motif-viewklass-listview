@@ -13,8 +13,15 @@ Graphics::~Graphics()
     if (_gc != NULL && _display != NULL)
         XFreeGC(_display, _gc);
 
-    // Clean up font map
-    for(auto font : _fontMap)
+    // Clear up color map
+    for(auto color : _colorMap) 
+        delete color.second;
+    _colorMap.clear();  
+
+    // -------------------------------------------------------------------------------------------------
+
+    // Clean up XFT font map
+    for(auto font : _xftFontMap)
     {
         if (font.second != NULL)
         {
@@ -22,12 +29,12 @@ Graphics::~Graphics()
             font.second = NULL;
         }
     } 
-    _fontMap.clear();
+    _xftFontMap.clear();
 
-    // Clear up color map
-    for(auto color : _colorMap) 
+    // Clear up XFT color map
+    for(auto color : _xftColorMap) 
         delete color.second;
-    _colorMap.clear();    
+    _xftColorMap.clear();    
 } 
 
 void 
@@ -65,12 +72,6 @@ Display*
 Graphics::display()
 {
     return _display;
-}
-
-void 
-Graphics::clearWindow()
-{
-    XClearWindow(_display, _window);
 }
 
 Colormap
@@ -136,6 +137,12 @@ Graphics::getFontByNameXft(std::string fontName)
     return font;
 }
 
+bool 
+Graphics::drawString(std::string fontName, std::string colorName, XRectangle rect, std::string text)
+{
+    drawString(fontName, colorName, rect.x, rect.y + rect.height, text);
+}
+
 bool
 Graphics::drawString(std::string fontName, std::string colorName, Dimension x, Dimension y, std::string text)
 {
@@ -188,7 +195,7 @@ Graphics::drawRectangle(XRectangle rectangle, std::string colorName)
 }
 
 void
-GraphicsGraphics::drawRectangle(Dimension x, Dimension y, Dimension width, Dimension height)
+Graphics::drawRectangle(Dimension x, Dimension y, Dimension width, Dimension height)
 {
     XDrawRectangle(_display, _window, _gc, x, y, width, height);
 }
@@ -297,8 +304,6 @@ Graphics::getPixmapByName(std::string pixmapName, const char** xpmPixmapDesc)
 {
     if (_pixmapMap.count(pixmapName) == 0)
     {
-        std::cout << "Name not found" << std::endl;
-
         Pixmap pixmap = VkCreateXPMPixmap(_widget, xpmPixmapDesc, NULL);
 
         if (pixmap == 0)
@@ -306,11 +311,8 @@ Graphics::getPixmapByName(std::string pixmapName, const char** xpmPixmapDesc)
 
         _pixmapMap.insert(std::pair<std::string, Pixmap>(pixmapName, pixmap)); 
 
-        std::cout << "pixmap " << pixmap  << std::endl;
-
         return pixmap;
     }
-    std::cout << "Name found" << std::endl;
 
     return _pixmapMap.at(pixmapName);
 }
@@ -329,6 +331,12 @@ Graphics::setPixmap(std::string pixmapName, Pixmap pixmap)
 {
     if (_pixmapMap.count(pixmapName) == 0)
         _pixmapMap.insert(std::pair<std::string, Pixmap>(pixmapName, pixmap)); 
+}
+
+void 
+Graphics::draw(std::string pixmapName,XRectangle rect)
+{
+    draw(pixmapName, rect.width, rect.height, rect.x, rect.y);
 }
 
 void 

@@ -13,7 +13,7 @@ private:
     Widget _horizontalScrollbar;
 
 private:
-    VkGraphics graphics;
+    Graphics graphics;
 
 private:
     Dimension _rowHeight = 30;
@@ -22,6 +22,7 @@ private:
     int _numberOfRowsVisible = 1;
     int _numberOfRows = 1;
     int _offsetRows = 0;
+    int _separatorHeight = 1;
 
 private:
     ListViewDelegate* _delegate = NULL;

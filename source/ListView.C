@@ -22,7 +22,7 @@ ListView::ListView(const char *name, Widget parent, ListViewDelegate *delegate)
         setNumberOfRows(_delegate->numberOfRows());      
 }
 
-ListView::~ListViewPaListViewnel()
+ListView::~ListView()
 {
 }
 
@@ -95,7 +95,7 @@ ListView::setDelegate(ListViewDelegate *delegate)
     _delegate = delegate;
 }
 
-Delegate *
+ListViewDelegate*
 ListView::delegate()
 {
     return _delegate;
@@ -156,7 +156,7 @@ ListView::setRowsVisible(Dimension height)
 {
     if (height > 0)
     {
-        XtError("Can't calculate rows visible");
+        XtWarning("Can't calculate rows visible");
         return;
     }
 
@@ -170,7 +170,7 @@ ListView::redraw(Window window)
     // BAD NAME    
     graphics.setWidget(_drawingArea);
 
-    std::cout << "draw()" << std::endl;
+    // std::cout << "draw()" << std::endl;
 
     // Clear the drawarea with white color
     XRectangle windowReact = EZ::makeRectangle(0, 0, 0, 0);
@@ -179,11 +179,10 @@ ListView::redraw(Window window)
 
     if (_delegate == NULL)
     {
-        XtError("Delegator not found");
+        XtWarning("Delegator not found");
         return;
     }
 
-    int separator = 1;
     int hightOfRow = _delegate->heightOfRow();
 
     // std::cout << "[numberOfRows] " << _numberOfRows << std::endl;
@@ -195,7 +194,7 @@ ListView::redraw(Window window)
 
         if (this->_numberOfRows > rowId)
         {   
-            int offset = (hightOfRow + separator) * i;
+            int offset = (hightOfRow + _separatorHeight) * i;
 
             if (_numberOfRows > 1)
             {
@@ -205,11 +204,11 @@ ListView::redraw(Window window)
 
             if (rowId == selectedRow())
             {
-                XRectangle selectedRowReact = EZ::makeRectangle(6, offset, windowReact.width-12, hightOfRow-separator);
+                XRectangle selectedRowReact = EZ::makeRectangle(6, offset, windowReact.width-12, hightOfRow-_separatorHeight);
                 graphics.fillRectangle(selectedRowReact, "gray98");
             }
 
-            XRectangle rectangle = EZ::makeRectangle(6, offset, _rowWidth-12, hightOfRow-separator);
+            XRectangle rectangle = EZ::makeRectangle(6, offset, _rowWidth-12, hightOfRow-_separatorHeight);
             _delegate->draw(rowId, &graphics, rectangle);
         }     
     }
@@ -225,7 +224,6 @@ ListView::getRowIdByY(int y)
     if (_delegate == NULL)
         return -1;
 
-    int separator = 1;
     int hightOfRow = _delegate->heightOfRow();
 
     for (int i = 0; i < _numberOfRowsVisible; i++)
@@ -234,16 +232,14 @@ ListView::getRowIdByY(int y)
 
         if (this->_numberOfRows > rowId)
         {   
-            int offset = (hightOfRow + separator) * i;
+            int offset = (hightOfRow + _separatorHeight) * i;
 
             if (y >= offset && y <= offset+hightOfRow)
             {
                 return rowId;
-            }
-                
+            }                
         }
     }
-
     return -1;
 }
 
@@ -256,7 +252,7 @@ ListView::getRowIdByY(int y)
 void 
 ListView::handleScrolled(int orientation, int value)
 {
-    std::cout << "scrolled " << value << std::endl;
+    // std::cout << "scrolled " << value << std::endl;
 
     _offsetRows = value;
 
@@ -266,7 +262,7 @@ ListView::handleScrolled(int orientation, int value)
 void 
 ListView::handleExpose(Window window)
 {
-    std::cout << "expose()" << std::endl;
+    // std::cout << "expose()" << std::endl;
 
     redraw(window);
 }
@@ -289,18 +285,18 @@ ListView::handleResize(Window window)
         // Calculate how many rows are visible
         int heightOfRow =  _delegate->heightOfRow();
 
-        std::cout << "heightOfRow " << heightOfRow << std::endl;
+        // std::cout << "heightOfRow " << heightOfRow << std::endl;
 
         _numberOfRowsVisible = (int)(height/heightOfRow) + 1;
 
-        std::cout << "numberOfRowsVisible " << _numberOfRowsVisible << std::endl;
+        // std::cout << "numberOfRowsVisible " << _numberOfRowsVisible << std::endl;
     }
 }
 
 void 
 ListView::handleEvent(XEvent* event)
 {
-    cout << "type : " << event->type << endl;
+    // cout << "type : " << event->type << endl;
 
     // https://stackoverflow.com/questions/35745561/how-can-i-convert-an-xevent-to-a-string
     switch(event->type)
@@ -325,13 +321,16 @@ ListView::handleEvent(XEvent* event)
 void 
 ListView::handleButton1Pressed(XButtonPressedEvent* event)
 {
-    cout << "handleButton1Pressed" << " y: " << event->y << endl;    
+    // cout << "handleButton1Pressed" << " y: " << event->y << endl;    
 
     int rowId = getRowIdByY(event->y);
 
     setSelectedRow(rowId);
 
     redraw(XtWindow(_drawingArea));
+
+    if (_delegate != NULL)
+        _delegate->rowSelected(rowId);
 }
 
 void 
@@ -343,11 +342,11 @@ ListView::handleButtonPressed(XButtonPressedEvent* event)
     // https://tronche.com/gui/x/xlib/events/keyboard-pointer/keyboard-pointer.html
     switch(event->button)
     {
-        case Button1: /*cout << "Button1" << endl;*/ handleButton1Pressed(event); break;
-        case Button2: cout << "Button2" << endl; break;
-        case Button3: cout << "Button3" << endl; break;
-        case Button4: cout << "Button4" << endl; break;
-        case Button5: cout << "Button5" << endl; break;
+        case Button1: handleButton1Pressed(event); break;
+        // case Button2: cout << "Button2" << endl; break;
+        // case Button3: cout << "Button3" << endl; break;
+        // case Button4: cout << "Button4" << endl; break;
+        // case Button5: cout << "Button5" << endl; break;
         default: break;
     }
 }
@@ -361,7 +360,7 @@ ListView::handleButtonPressed(XButtonPressedEvent* event)
 void 
 ListView::exposeCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "exposeCallback" << std::endl;
+    // std::cout << "exposeCallback" << std::endl;
 
     XmDrawingAreaCallbackStruct *cbs = (XmDrawingAreaCallbackStruct *)callData;
 
@@ -374,7 +373,7 @@ ListView::exposeCallback(Widget widget, XtPointer clientData, XtPointer callData
 
 void ListView::inputCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "inputCallback" << std::endl;
+    // std::cout << "inputCallback" << std::endl;
 
     XmDrawingAreaCallbackStruct *cbs = (XmDrawingAreaCallbackStruct *)callData;
 
@@ -387,7 +386,7 @@ void ListView::inputCallback(Widget widget, XtPointer clientData, XtPointer call
 
 void ListView::resizeCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "resizeCallback" << std::endl;
+    // std::cout << "resizeCallback" << std::endl;
 
     XmDrawingAreaCallbackStruct *cbs = (XmDrawingAreaCallbackStruct *)callData;
 
@@ -400,7 +399,7 @@ void ListView::resizeCallback(Widget widget, XtPointer clientData, XtPointer cal
 
 void ListView::valueChangedVerticalCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "valueChangedVerticalCallback" << std::endl;
+    // std::cout << "valueChangedVerticalCallback" << std::endl;
 
     ListView *listView = (ListView*)clientData;
 
@@ -413,7 +412,7 @@ void ListView::valueChangedVerticalCallback(Widget widget, XtPointer clientData,
 
 void ListView::dragVerticalCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "dragVerticalCallback" << std::endl;
+    // std::cout << "dragVerticalCallback" << std::endl;
 
     if (callData != NULL)
     {
@@ -424,7 +423,7 @@ void ListView::dragVerticalCallback(Widget widget, XtPointer clientData, XtPoint
 
 void ListView::valueChangedHorizontalCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "valueChangedHorizontalCallback" << std::endl;
+    // std::cout << "valueChangedHorizontalCallback" << std::endl;
 
     if (callData != NULL)
     {
@@ -435,7 +434,7 @@ void ListView::valueChangedHorizontalCallback(Widget widget, XtPointer clientDat
 
 void ListView::dragHorizontalCallback(Widget widget, XtPointer clientData, XtPointer callData)
 {
-    std::cout << "dragHorizontalCallbackWidget" << std::endl;
+    // std::cout << "dragHorizontalCallbackWidget" << std::endl;
 
     if (callData != NULL)
     {

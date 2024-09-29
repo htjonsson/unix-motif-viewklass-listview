@@ -12,8 +12,8 @@
 #include <vector>
 
 #include "ListView.h"
-#include "ListViewDelegate.h"
-#include "defaultResources.h"
+#include "Delegate.h"
+#include "DefaultResources.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ int main ( int argc, char **argv )
 
     VkSimpleWindow* win = new VkSimpleWindow("ListView");
     
-    ListViewDelegate delegate;
+    Delegate delegate;
     delegate.setNumberOfRows(8);
     delegate.setHeightOfRow(72);
 

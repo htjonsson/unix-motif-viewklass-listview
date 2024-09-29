@@ -53,35 +53,15 @@ ListViewDelegate::heightOfRow()
     _heightOfRow = heightOfRow;
  }
 
+void
+ListViewDelegate::rowSelected(int rowId)
+{
+    std::cout << "ListViewDelegate::rowSelected " << rowId << std::endl;
+}
+
 // --------------------------------------------------------------------------------------------------------------------------
 
 void 
-ListViewDelegate::draw(int rowId, VkGraphics* g, XRectangle rectangle)
-{
-    // title
-    XRectangle rect = EZ::ofRectangle(rectangle, 60, 18, 300, 13);
-
-    stringstream ss;
-    ss << "[" << rowId << "] - Ant Design Title 2"; 
-    
-    std::string fontName("Verdan:style=Bold:pixelsize=10:antialias=true");
-    std::string colorName("black");
-
-    g->drawStringXft(fontName, colorName, rect.x, rect.y+rect.height-2, ss.str());
-
-    // text
-    rect = EZ::ofRectangle(rectangle, 60,44, 300, 13);
-
-    std::string fontName2("Verdan:pixelsize=10:antialias=true");
-    std::string colorName2("gray55");
-
-    g->drawStringXft(fontName2, colorName2, rect.x, rect.y+rect.height-2, "Ant Design, a design language for background apllications, is refined by Ant UED Team");
-
-    // image
-    rect = EZ::ofRectangle(rectangle, 6, 15, 48, 48);
-    g->drawRectangle(rect, "green");
-
-    g->getPixmapByName("sun", _workstation_sparc);
-
-    g->draw("sun", 48, 48, rect.x, rect.y);    
-}
+ListViewDelegate::draw(int rowId, Graphics* g, XRectangle rectangle)
+{}
+ 
