@@ -39,7 +39,7 @@ const string Delegate::_textColorName = "gray55";
 int 
 Delegate::numberOfRows()
 {
-    return 18;
+    return 8;
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,6 @@ Delegate::getTitle(int rowId)
 {
     stringstream ss;
     ss << "[" << rowId << "] - Ant Design Title 2"; 
-
     return ss.str();
 }
 
@@ -62,15 +61,29 @@ Delegate::getText(int rowId)
 std::string
 Delegate::getImageName(int rowId, Graphics* g)
 {
+    switch(rowId)
+    {
+        case 0: return "mips";
+        case 1: return "sparc";
+        case 2: return "apple";
+        case 3: return "ibm";
+        case 4: return "monitor";
+        case 5: return "pc";
+        case 6: return "unix";
+        default: return "mips";
+    }
+}
+
+void
+Delegate::initImages()
+{
     g->getPixmapByName("sparc", xpm_sparc);
     g->getPixmapByName("mips", xpm_mips);
-g->getPixmapByName("apple", xpm_apple);
-g->getPixmapByName("ibm", xpm_ibm);
-g->getPixmapByName("monitor", xpm_monitor);
-g->getPixmapByName("pc", xpm_pc);
-g->getPixmapByName("unix", xpm_unix);
-
-    return "mips";
+    g->getPixmapByName("apple", xpm_apple);
+    g->getPixmapByName("ibm", xpm_ibm);
+    g->getPixmapByName("monitor", xpm_monitor);
+    g->getPixmapByName("pc", xpm_pc);
+    g->getPixmapByName("unix", xpm_unix);
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -78,6 +91,8 @@ g->getPixmapByName("unix", xpm_unix);
 void 
 Delegate::draw(int rowId, Graphics* g, XRectangle rectangle)
 {
+    initImages();
+
     // title
     XRectangle rect = EZ::ofRectangle(rectangle, 60, 18, 300, 11);
     g->drawString(  _titlefontName, 
