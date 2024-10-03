@@ -1,5 +1,5 @@
 /* XPM */
-static const char *_workstation_sparc[] = {
+static const char *_sparc[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 147 2 ",
 "   c white",
