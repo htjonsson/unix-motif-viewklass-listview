@@ -1,8 +1,14 @@
 #include "Delegate.h"
 
 #include "EZ.h"
-#include "images/workstation_sgi.xpm"
-#include "images/workstation_sparc.xpm"
+#include "images/sgi.xpm"
+#include "images/sparc.xpm"
+#include "images/mips.xpm"
+#include "images/apple.xpm"
+#include "images/pc.xpm"
+#include "images/ibm.xpm"
+#include "images/monitor.xpm"
+#include "images/unix.xpm"
 
 #include <Vk/VkPixmap.h>
 #include <Xm/Xm.h>
