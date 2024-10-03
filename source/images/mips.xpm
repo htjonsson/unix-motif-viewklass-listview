@@ -1,5 +1,5 @@
 /* XPM */
-static const char *_workstation_sgi[] = {
+static const char *_mips[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 146 2 ",
 "   c white",
