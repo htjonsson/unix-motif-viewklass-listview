@@ -62,10 +62,15 @@ Delegate::getText(int rowId)
 std::string
 Delegate::getImageName(int rowId, Graphics* g)
 {
-    g->getPixmapByName("sun", _workstation_sparc);
-    g->getPixmapByName("sgi", _workstation_sgi);
+    g->getPixmapByName("sparc", xpm_sparc);
+    g->getPixmapByName("mips", xpm_mips);
+g->getPixmapByName("apple", xpm_apple);
+g->getPixmapByName("ibm", xpm_ibm);
+g->getPixmapByName("monitor", xpm_monitor);
+g->getPixmapByName("pc", xpm_pc);
+g->getPixmapByName("unix", xpm_unix);
 
-    return "sgi";
+    return "mips";
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
