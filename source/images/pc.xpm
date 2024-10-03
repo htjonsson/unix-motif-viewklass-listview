@@ -1,5 +1,5 @@
 /* XPM */
-static char *_8bf959d1cff475797cf6f877b1a4daeLldTxicuvgA73ajU[] = {
+static const char *xpm_pc[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 120 2 ",
 "   c white",
