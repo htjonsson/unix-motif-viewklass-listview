@@ -1,5 +1,5 @@
 /* XPM */
-static char *b50da01473094efae61cbf641cc9e926yn8IjvsyTZsXA4dA[] = {
+static const char *_ibm[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 251 2 ",
 "   c white",
