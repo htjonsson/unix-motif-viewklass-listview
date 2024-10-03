@@ -1,5 +1,5 @@
 /* XPM */
-static char *cb166a1b43ce4622fabb578e75f9381f5OSrKSbZ3IqZ5MoH[] = {
+static const char *_monitor[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 256 2 ",
 "   c white",
