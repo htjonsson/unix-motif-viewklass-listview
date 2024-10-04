@@ -1,4 +1,4 @@
-### GOAL : To create a listview 
+### GOAL : Create a nice looking listview, that is simple to use 
 - Using Motif/SGI ViewKit
 - That works similar to to listview in iOS
 - Use delegator pattern
