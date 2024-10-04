@@ -28,7 +28,6 @@ int main ( int argc, char **argv )
     
     Delegate delegate;
     delegate.setNumberOfRows(8);
-    delegate.setHeightOfRow(72);
 
     ListView panel("list_view_panel", win->mainWindowWidget(), &delegate);
     win->addView(panel);
