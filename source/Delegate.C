@@ -47,15 +47,33 @@ Delegate::numberOfRows()
 std::string
 Delegate::getTitle(int rowId)
 {
-    stringstream ss;
-    ss << "[" << rowId << "] - Ant Design Title 2"; 
-    return ss.str();
+    switch(rowId)
+    {
+        case 0: return "Indy Mips 5000";
+        case 1: return "SPARCstation 20";
+        case 2: return "Macintosh Quadra";
+        case 3: return "RISC System/6000";
+        case 4: return "Trinitron";
+        case 5: return "AlphaStation 255";
+        case 6: return "OpenServer";
+        default: return "MIPS Magnum R4000";
+    } 
 }
 
 std::string
 Delegate::getText(int rowId)
 {
-    return "Ant Design, a design language for background apllications, is refined by Ant UED Team";
+    switch(rowId)
+    {
+        case 0: return "Silicon Graphics Incorporated";
+        case 1: return "Sun Microsystems Incorporated";
+        case 2: return "Apple Incorporated";
+        case 3: return "International Business Machines Corporation";
+        case 4: return "Sony Group Corporation";
+        case 5: return "Digital Equipment Corporation";
+        case 6: return "Santa Cruz Operation Incorporated";
+        default: return "MIPS Computer Systems Incorporated";
+    }
 }
 
 std::string
