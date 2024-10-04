@@ -29,6 +29,9 @@ public:
     int numberOfRows();
 
 public:
+    void rowSelected(int rowId);
+
+public:
     void draw(int rowId, Graphics* graphics, XRectangle rectangle);
 };
 
