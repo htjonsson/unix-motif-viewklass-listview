@@ -110,7 +110,7 @@ ListView::setNumberOfRows(int numberOfRows)
     {
         _numberOfRows = numberOfRows;
 
-        XtVaSetValues(_verticalScrollbar, XmNmaximum, numberOfRows-1, NULL);
+        XtVaSetValues(_verticalScrollbar, XmNmaximum, _numberOfRows, NULL);
     }
 }
 
@@ -157,7 +157,7 @@ ListView::setRowsVisible(Dimension height)
     }
 
     float rows = (float)height / (float)_rowHeight;
-    _numberOfRowsVisible = (int)rows; //  + 1;
+    _numberOfRowsVisible = (int)rows;
 }
 
 void 

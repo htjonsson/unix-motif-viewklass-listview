@@ -20,7 +20,7 @@ using namespace std;
 // Application-specific setup
 int main ( int argc, char **argv )
 {
-    VkApp* app = new VkApp("TabPanelApp", &argc, argv);
+    VkApp* app = new VkApp("ListViewApp", &argc, argv);
     // Application-specific code
     app->setDefaultResources(app->baseWidget(), _defaultResources);
 
