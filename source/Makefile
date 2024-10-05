@@ -9,7 +9,7 @@ VK_INC   := /usr/local/include
 LDFLAGS  := -L${VK_LIB} -L/usr/X11R6/lib -lvk -lvkhelp -lXmu -lXpm -lXm -lXt -lX11 -lXft -lstdc++ ${VK_LIB}/libvk.a ${VK_LIB}/libvkhelp.a
 OBJ_DIR  := ./objects
 BIN_DIR  := ./target
-BINARY   := panel.app
+BINARY   := target.app
 INCLUDE  := -I${VK_INC} -I/usr/X11R6/include -I/usr/include/freetype2
 SRC      := $(wildcard *.C) 
 OBJECTS  := $(SRC:%.C=$(OBJ_DIR)/%.o)

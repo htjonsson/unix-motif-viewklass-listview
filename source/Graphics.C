@@ -44,7 +44,7 @@ Graphics::setWidget(Widget widget)
     _display = XtDisplay(widget);
     _window = XtWindow(widget);
 
-    if (!(_gc = XCreateGC(_display, _window, NULL, 0)))
+    if (!(_gc = XCreateGC(_display, _window, 0, 0)))
     {
         XtError("Can't create gc.");
     }
@@ -141,6 +141,8 @@ bool
 Graphics::drawString(std::string fontName, std::string colorName, XRectangle rect, std::string text)
 {
     drawString(fontName, colorName, rect.x, rect.y + rect.height, text);
+
+    return true;
 }
 
 bool
@@ -160,6 +162,8 @@ Graphics::drawString(std::string fontName, std::string colorName, Dimension x, D
 
         XftDrawDestroy(draw);
     }      
+
+    return true;
 }
 
 // ---------------------------------------------------------------------------------------

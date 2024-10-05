@@ -4,7 +4,7 @@
 - Use delegator pattern
 - Use XFT font drawing
 
-![alt text](Screenshot_2020-06-26_16-04-41.png)
+![alt text](screenshot.png)
 
 ### TODO
 - Pixel scrolling

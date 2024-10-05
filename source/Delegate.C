@@ -1,9 +1,8 @@
 #include "Delegate.h"
 
 #include "EZ.h"
-#include "images/sgi.xpm"
-#include "images/sparc.xpm"
 #include "images/mips.xpm"
+#include "images/sparc.xpm"
 #include "images/apple.xpm"
 #include "images/pc.xpm"
 #include "images/ibm.xpm"
@@ -93,7 +92,7 @@ Delegate::getImageName(int rowId, Graphics* g)
 }
 
 void
-Delegate::initImages()
+Delegate::initImages(Graphics* g)
 {
     g->getPixmapByName("sparc", xpm_sparc);
     g->getPixmapByName("mips", xpm_mips);
@@ -109,6 +108,7 @@ Delegate::initImages()
 void 
 Delegate::rowSelected(int rowId)
 {
+    std::cout << "rowSelected " << rowId << std::endl;
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ Delegate::rowSelected(int rowId)
 void 
 Delegate::draw(int rowId, Graphics* g, XRectangle rectangle)
 {
-    initImages();
+    initImages(g);
 
     // title
     XRectangle rect = EZ::ofRectangle(rectangle, 60, 18, 300, 11);

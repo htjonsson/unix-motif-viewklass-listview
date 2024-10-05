@@ -25,6 +25,9 @@ private:
     std::string getText(int rowId); 
     std::string getImageName(int rowId, Graphics* g);
 
+private:
+    void initImages(Graphics* g);
+
 public:
     int numberOfRows();
 
